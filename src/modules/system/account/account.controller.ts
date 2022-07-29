@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { faker } from '@faker-js/faker/locale/zh_CN';
 import { AccountService } from './account.service';
 import { CreateAccountDto, IsAccountExistDto } from './dto/account.dto';
@@ -23,8 +23,8 @@ export class AccountController {
   }
 
   @Get('getAccountInfo')
-  async getAccountInfo() {
-    const list = await this.accountService.list('1');
+  async getAccountInfo(@Query() query: any) {
+    const list = await this.accountService.list(query);
     // console.log('list=', list);
     return {
       code: 0,
@@ -38,13 +38,46 @@ export class AccountController {
   }
 
   @Get('getAccountList')
-  async getAccountList() {
-    const list = await this.accountService.list('1');
+  async getAccountList(@Query() query: any) {
+    const list = await this.accountService.list(query);
     // console.log('list=', list);
     return {
       code: 0,
+      // result: {
+      //   items: list[0],
+      //   total: list[1],
+      // },
       result: {
-        items: list[0],
+        items: [
+          {
+            id: 13,
+            province: '福建',
+            username: 'qereaffda',
+            password: '321esadd',
+            roleName: 'B',
+            bId: null,
+            cId: null,
+            t: 'B',
+            nickname: '新用户',
+            companyName: null,
+            companyProfile: null,
+            contact: null,
+            mobile: null,
+            email: null,
+            sex: '0',
+            avatar: null,
+            provinceCode: '430000',
+            status: '0',
+            loginIp: '0.0.0.0',
+            loginAt: null,
+            pwdUpdatedAt: null,
+            createdBy: null,
+            updatedBy: null,
+            createdAt: '2022-07-28T00:36:49.361Z',
+            updateAt: '2022-07-28T00:36:49.361Z',
+            remark: null,
+          },
+        ],
         total: list[1],
       },
       message: 'success',

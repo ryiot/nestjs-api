@@ -55,6 +55,7 @@ async function bootstrap() {
   /* 启动 vue 的 history模式 */
   // app.use(
   //   history({
+  //     // index: '/index.html',
   //     rewrites: [
   //       {
   //         from: /^\/1\/.*$/,
@@ -63,6 +64,17 @@ async function bootstrap() {
   //           return context.parsedUrl.pathname;
   //         },
   //       },
+  //       {
+  //         from: /^\/www\/.*$/,
+  //         to: function (context: { parsedUrl: { pathname: any } }) {
+  //           console.log('www=',context.parsedUrl.pathname);
+  //           return context.parsedUrl.pathname;
+  //         },
+  //       },
+  //       // {
+  //       //   from: /^\/admin\//,
+  //       //   to: '/admin/',
+  //       // },
   //     ],
   //   }),
   // );

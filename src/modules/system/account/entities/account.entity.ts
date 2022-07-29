@@ -69,6 +69,14 @@ export class AccountEntity {
   companyProfile: string;
 
   @Column('varchar', {
+    name: 'name',
+    default: null,
+    comment: '联系人',
+    length: 100,
+  })
+  contact: string;
+
+  @Column('varchar', {
     name: 'mobile',
     default: null,
     comment: '手机号',
@@ -100,13 +108,13 @@ export class AccountEntity {
   })
   avatar: string;
 
-  // @Column('varchar', {
-  //   name: 'type',
-  //   comment: '用户类型（00系统用户 01注册用户）',
-  //   length: 2,
-  //   default: '00',
-  // })
-  // type: string;
+  @Column('varchar', {
+    name: 'province_code',
+    comment: '省',
+    length: 10,
+    default: '430000',
+  })
+  provinceCode: string;
 
   @Column('char', {
     name: 'status',

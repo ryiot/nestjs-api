@@ -8,6 +8,7 @@ import { UserModule } from './modules/system/user/user.module';
 import { LoginModule } from './modules/system/login/login.module';
 import { AccountModule } from './modules/system/account/account.module';
 import { DeptModule } from './modules/system/dept/dept.module';
+import { AreasModule } from './modules/system/areas/areas.module';
 
 let configFilePath = path.resolve('.env.production');
 if (process.env.NODE_ENV == 'development') {
@@ -41,6 +42,7 @@ if (process.env.NODE_ENV == 'development') {
     LoginModule,
     AccountModule,
     DeptModule,
+    AreasModule,
   ],
   controllers: [AppController],
   providers: [Logger, AppService],

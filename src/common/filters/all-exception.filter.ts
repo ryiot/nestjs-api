@@ -16,11 +16,13 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ApiException } from '../exceptions/api.exception';
+import * as path from 'path';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
+    const response = ctx.getResponse();
     const request = ctx.getRequest();
     const url = request.originalUrl;
     const method = request.method;
@@ -28,15 +30,34 @@ export class AllExceptionsFilter implements ExceptionFilter {
     if (request.user) {
       username = request.user.username;
     }
-    const response = ctx.getResponse();
+
     const { status, result } = this.errorResult(
       exception,
       url,
       method,
       username,
     );
-    response.header('Content-Type', 'application/json; charset=utf-8');
-    response.status(status).json(result);
+    // response.header('Content-Type', 'application/json; charset=utf-8');
+    // response.status(status).json(result);
+    if (status == 404) {
+      response.header('Content-Type', 'text/html');
+      let isAdmin = false;
+      if (url) {
+        const re = /^\/admin\//;
+        const result = url.match(re);
+        if (result != null) {
+          isAdmin = true;
+        }
+      }
+      if (isAdmin) {
+        response.status(200).sendFile(path.resolve('public/admin/index.html'));
+      } else {
+        response.status(200).sendFile(path.resolve('public/www/index.html'));
+      }
+    } else {
+      response.header('Content-Type', 'application/json; charset=utf-8');
+      response.status(status).json(result);
+    }
   }
 
   /* 解析错误类型，获取状态码和返回值 */
