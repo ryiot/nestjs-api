@@ -44,4 +44,11 @@ export class AreasService {
     const res = await this.areasRepository.find({ where: search });
     return res;
   }
+
+  async findValue(dto: string): Promise<object> {
+    const search = { value: dto };
+
+    const res = await this.areasRepository.findOne({ where: search });
+    return res;
+  }
 }

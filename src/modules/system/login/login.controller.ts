@@ -21,29 +21,30 @@ export class LoginController {
   //   }
   // }
   @Post('login')
-  async login(): Promise<any> {
+  async login(@Body() reqLoginDto: ReqLoginDto): Promise<any> {
+    return {code:-1,message:'账号'}
     
-    return {
-      code: 0,
-      result: {
-        userId: '1',
-        username: 'vben',
-        realName: '设备管理平台',
-        avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
-        desc: 'manager',
-        password: '123456',
-        token: 'fakeToken1',
-        homePath: '/dashboard/analysis',
-        roles: [
-          {
-            roleName: 'Super Admin',
-            value: 'super',
-          },
-        ],
-      },
-      message: 'success',
-      type: 'success',
-    };
+    // return {
+    //   code: 0,
+    //   result: {
+    //     userId: '1',
+    //     username: 'vben',
+    //     realName: '设备管理平台',
+    //     avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
+    //     desc: 'manager',
+    //     password: '123456',
+    //     token: 'fakeToken1',
+    //     homePath: '/dashboard/analysis',
+    //     roles: [
+    //       {
+    //         roleName: 'Super Admin',
+    //         value: 'super',
+    //       },
+    //     ],
+    //   },
+    //   message: 'success',
+    //   type: 'success',
+    // };
   }
   /* 获取用户信息 */
   @Get('getUserInfo')
@@ -124,11 +125,11 @@ export class LoginController {
       ],
     };
 
-    const myAccountRoute = {
-      path: '/myAccount',
-      name: 'MyAccount',
+    const AccountRoute = {
+      path: '/account',
+      name: 'Account',
       component: 'LAYOUT',
-      redirect: '/myAccount/accountB',
+      redirect: '/account/accountB',
       meta: {
         icon: 'ion:settings-outline',
         title: 'routes.myAccount.moduleName',
@@ -141,7 +142,7 @@ export class LoginController {
             title: 'routes.myAccount.accountB',
             ignoreKeepAlive: true,
           },
-          component: '/myAccount/accountB/index',
+          component: '/account/accountB/index',
         },
         {
           path: 'accountB_detail/:id',
@@ -151,52 +152,52 @@ export class LoginController {
             title: 'routes.myAccount.accountB_detail',
             ignoreKeepAlive: true,
             showMenu: false,
-            currentActiveMenu: '/myAccount/accountB',
+            currentActiveMenu: '/account/accountB',
           },
-          component: '/myAccount/accountB/AccountDetail',
+          component: '/account/accountB/AccountDetail',
         },
-        {
-          path: 'accountC',
-          name: 'AccountCManagement',
-          meta: {
-            title: 'routes.myAccount.accountC',
-            ignoreKeepAlive: true,
-          },
-          component: '/myAccount/accountC/index',
-        },
-        {
-          path: 'accountC_detail/:id',
-          name: 'AccountCDetail',
-          meta: {
-            hideMenu: true,
-            title: 'routes.myAccount.accountC_detail',
-            ignoreKeepAlive: true,
-            showMenu: false,
-            currentActiveMenu: '/myAccount/accountC',
-          },
-          component: '/myAccount/accountC/AccountDetail',
-        },
-        {
-          path: 'accountD',
-          name: 'AccountDManagement',
-          meta: {
-            title: 'routes.myAccount.accountD',
-            ignoreKeepAlive: true,
-          },
-          component: '/myAccount/accountD/index',
-        },
-        {
-          path: 'accountD_detail/:id',
-          name: 'AccountDDetail',
-          meta: {
-            hideMenu: true,
-            title: 'routes.myAccount.accountD_detail',
-            ignoreKeepAlive: true,
-            showMenu: false,
-            currentActiveMenu: '/myAccount/accountD',
-          },
-          component: '/myAccount/accountD/AccountDetail',
-        },
+        // {
+        //   path: 'accountC',
+        //   name: 'AccountCManagement',
+        //   meta: {
+        //     title: 'routes.myAccount.accountC',
+        //     ignoreKeepAlive: true,
+        //   },
+        //   component: '/system/account/accountC/index',
+        // },
+        // {
+        //   path: 'accountC_detail/:id',
+        //   name: 'AccountCDetail',
+        //   meta: {
+        //     hideMenu: true,
+        //     title: 'routes.myAccount.accountC_detail',
+        //     ignoreKeepAlive: true,
+        //     showMenu: false,
+        //     currentActiveMenu: '/system/account/accountC',
+        //   },
+        //   component: '/system/account/accountC/AccountDetail',
+        // },
+        // {
+        //   path: 'accountD',
+        //   name: 'AccountDManagement',
+        //   meta: {
+        //     title: 'routes.myAccount.accountD',
+        //     ignoreKeepAlive: true,
+        //   },
+        //   component: '/system/account/accountD/index',
+        // },
+        // {
+        //   path: 'accountD_detail/:id',
+        //   name: 'AccountDDetail',
+        //   meta: {
+        //     hideMenu: true,
+        //     title: 'routes.myAccount.accountD_detail',
+        //     ignoreKeepAlive: true,
+        //     showMenu: false,
+        //     currentActiveMenu: '/system/account/accountD',
+        //   },
+        //   component: '/system/account/accountD/AccountDetail',
+        // },
       ],
     };
 
@@ -273,7 +274,10 @@ export class LoginController {
 
     return {
       code: 0,
-      result: [dashboardRoute, myAccountRoute, sysRoute],
+      result: [dashboardRoute, 
+        sysRoute,
+        AccountRoute,
+      ],
       message: 'success',
       type: 'success',
     };

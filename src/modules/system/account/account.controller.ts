@@ -24,10 +24,6 @@ export class AccountController {
   @Post('add')
   // async create(@Body() dto: CreateAccountDto): Promise<any> {
   async create(@Body() dto: any): Promise<any> {
-    console.log(dto);
-    dto.provinceCode = dto.areas[0];
-    dto.cityCode = dto.areas[1];
-    dto.areaCode = dto.areas[2];
     const createInfo = await this.accountService.create(dto);
     if (createInfo != null) {
       return { code: -1, message: '失败' };
@@ -93,7 +89,7 @@ export class AccountController {
   @Get('getAccountList')
   async getAccountList(@Query() query: any) {
     const list = await this.accountService.list(query);
-    // console.log('list=', list);
+    console.log('list=', list);
     return {
       code: 0,
       result: {
@@ -155,13 +151,35 @@ export class AccountController {
     // }
     // const createInfo = await this.accountService.create(dto);
     // if (createInfo != null) {
-    //   return { code: -1, message: '失败' };
+      // return { code: -1, message: '用户名已存在，请更换用户名' };
     // }
     return {
       code: 0,
       result: null,
       message: 'success',
       type: 'success',
+    };
+  }
+
+  @Post('status')
+  async status(@Body() dto: any): Promise<any> {
+    // const { id, status } = dto;
+    await this.accountService.status(dto);
+    return {
+      code: 0,
+      result: null,
+      message: 'success',
+    };
+  }
+
+  @Post('resetPassword')
+  async resetPassword(@Body() dto: any): Promise<any> {
+    // const { id, status } = dto;
+    await this.accountService.resetPassword(dto);
+    return {
+      code: 0,
+      result: null,
+      message: 'success',
     };
   }
 }
