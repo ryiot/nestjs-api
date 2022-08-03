@@ -122,6 +122,12 @@ export class AccountService {
     return 'err';
   }
 
+  async findByUsername(username: string) {
+    return await this.accountRepository.findOne({
+      where: { username },
+    });
+  }
+
   async findById(id: number) {
     return await this.accountRepository.findOne({
       select: [

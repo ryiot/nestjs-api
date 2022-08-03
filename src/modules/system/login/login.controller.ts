@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ReqLoginDto } from './dto/req-login.dto';
 import { ResLoginDto } from './dto/res-login.dto';
+import { SkipJwtAuth } from './jwt.constants';
 import { LoginService } from './login.service';
 
 @Controller()
@@ -20,32 +21,17 @@ export class LoginController {
   //       return null;
   //   }
   // }
+  @SkipJwtAuth()
   @Post('login')
   async login(@Body() reqLoginDto: ReqLoginDto): Promise<any> {
-    return {code:-1,message:'账号'}
-    
-    // return {
-    //   code: 0,
-    //   result: {
-    //     userId: '1',
-    //     username: 'vben',
-    //     realName: '设备管理平台',
-    //     avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
-    //     desc: 'manager',
-    //     password: '123456',
-    //     token: 'fakeToken1',
-    //     homePath: '/dashboard/analysis',
-    //     roles: [
-    //       {
-    //         roleName: 'Super Admin',
-    //         value: 'super',
-    //       },
-    //     ],
-    //   },
-    //   message: 'success',
-    //   type: 'success',
-    // };
+    console.log(reqLoginDto);
+    const { loginMethod } = reqLoginDto;
+    if (loginMethod == 'pc') {
+      return await this.loginService.PcLogin(reqLoginDto);
+    }
+    return { code: -1, message: '账号或密码错误！' };
   }
+
   /* 获取用户信息 */
   @Get('getUserInfo')
   async getUserInfo() {
@@ -201,6 +187,36 @@ export class LoginController {
       ],
     };
 
+    const ArticleRoute = {
+      path: '/article',
+      name: 'Article',
+      component: 'LAYOUT',
+      redirect: '/article/index',
+      meta: {
+        title: '优待标准',
+        hideChildrenInMenu: true,
+        icon: 'bx:bx-home',
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'ArticleManagement',
+          // meta: {
+          //   title: 'routes.myAccount.accountB',
+          //   ignoreKeepAlive: true,
+          // },
+          component: '/article/index',
+          meta: {
+            hideMenu: true,
+            hideBreadcrumb: true,
+            title: '优待标准',
+            currentActiveMenu: '/article',
+            icon: 'bx:bx-home',
+          },
+        },
+      ],
+    };
+
     const sysRoute = {
       path: '/system',
       name: 'System',
@@ -275,7 +291,8 @@ export class LoginController {
     return {
       code: 0,
       result: [dashboardRoute, 
-        sysRoute,
+        // sysRoute,
+        ArticleRoute,
         AccountRoute,
       ],
       message: 'success',

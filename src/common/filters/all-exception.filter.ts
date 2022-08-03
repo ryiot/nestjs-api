@@ -85,6 +85,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     }
     // 自定义异常格式体
     const format = {
+      code: code,
       url: url,
       method: method,
       status: code,
@@ -94,8 +95,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const logFormat = JSON.stringify(format);
     Logger.error(logFormat);
     return {
-      status,
-      result: logFormat,
+      status: 200,
+      result: format,
     };
   }
 }

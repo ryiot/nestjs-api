@@ -159,7 +159,7 @@ export class AccountEntity {
   @Column('char', {
     name: 'status',
     comment: '帐号状态（0正常 1停用）',
-    length: 1,
+    length: 2,
     default: '0',
   })
   status: string;
