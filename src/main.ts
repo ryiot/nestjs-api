@@ -6,7 +6,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { WinstonModule } from 'nest-winston';
 import * as path from 'path';
 import { AllExceptionsFilter } from './common/filters/all-exception.filter';
-import * as history from 'connect-history-api-fallback';
+// import * as history from 'connect-history-api-fallback';
 import * as winston from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 import { TransformInterceptor } from './common/filters/transform.interceptor';

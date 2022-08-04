@@ -10,6 +10,8 @@ import { AccountModule } from './modules/system/account/account.module';
 import { DeptModule } from './modules/system/dept/dept.module';
 import { AreasModule } from './modules/system/areas/areas.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { AppointmentConfigModule } from '@/modules/appointment/appointmentConfig/appointmentConfig.module';
+import { AppointmentRecordModule } from './modules/appointment/appointmentRecord/appointmentRecord.module';
 
 let configFilePath = path.resolve('.env.production');
 if (process.env.NODE_ENV == 'development') {
@@ -45,6 +47,8 @@ if (process.env.NODE_ENV == 'development') {
     DeptModule,
     AreasModule,
     UploadModule,
+    AppointmentConfigModule,
+    AppointmentRecordModule,
   ],
   controllers: [AppController],
   providers: [Logger, AppService],

@@ -46,7 +46,7 @@ export class LoginController {
         desc: 'manager',
         password: '123456',
         token: 'fakeToken1',
-        homePath: '/dashboard/analysis',
+        homePath: '/appointment/account',
         roles: [
           {
             roleName: 'Super Admin',
@@ -188,29 +188,29 @@ export class LoginController {
     };
 
     const ArticleRoute = {
-      path: '/article',
-      name: 'Article',
+      path: '/appointment',
+      name: 'Appointment',
       component: 'LAYOUT',
-      redirect: '/article/index',
+      redirect: '/appointment/index',
       meta: {
-        title: '优待标准',
+        title: '预约设置',
         hideChildrenInMenu: true,
         icon: 'bx:bx-home',
       },
       children: [
         {
           path: 'index',
-          name: 'ArticleManagement',
+          name: 'AppointmentManagement',
           // meta: {
           //   title: 'routes.myAccount.accountB',
           //   ignoreKeepAlive: true,
           // },
-          component: '/article/index',
+          component: '/appointment/index',
           meta: {
             hideMenu: true,
             hideBreadcrumb: true,
-            title: '优待标准',
-            currentActiveMenu: '/article',
+            title: '预约设置',
+            currentActiveMenu: '/appointment',
             icon: 'bx:bx-home',
           },
         },
@@ -288,13 +288,95 @@ export class LoginController {
       ],
     };
 
+    const appointment = [
+      {
+        path: '/appointment/account',
+        name: 'Account',
+        component: 'LAYOUT',
+        redirect: '/appointment/account/index',
+        meta: {
+          icon: 'ion:settings-outline',
+          title: '账号管理',
+          hideChildrenInMenu: true,
+        },
+        children: [
+          {
+            path: 'index',
+            name: 'AccountManagement',
+            meta: {
+              title: '账号管理',
+              ignoreKeepAlive: true,
+            },
+            component: '/appointment/account/index',
+          },
+          {
+            path: 'account_detail/:id',
+            name: 'AccountBDetail',
+            meta: {
+              hideMenu: true,
+              title: 'routes.myAccount.accountB_detail',
+              ignoreKeepAlive: true,
+              showMenu: false,
+              currentActiveMenu: '/appointment/account/index',
+            },
+            component: '/appointment/account/AccountDetail',
+          },
+        ],
+      },
+      {
+        path: '/appointment/record',
+        name: 'Record',
+        component: 'LAYOUT',
+        redirect: '/appointment/record/index',
+        meta: {
+          icon: 'ion:settings-outline',
+          title: '预约记录',
+          hideChildrenInMenu: true,
+        },
+        children: [
+          {
+            path: 'index',
+            name: 'RecordManagement',
+            meta: {
+              title: '预约记录',
+              ignoreKeepAlive: true,
+            },
+            component: '/appointment/record/index',
+          },
+        ],
+      },
+      {
+        path: '/appointment/config',
+        name: 'Config',
+        component: 'LAYOUT',
+        redirect: '/appointment/config/index',
+        meta: {
+          icon: 'ion:settings-outline',
+          title: '预约设置',
+          hideChildrenInMenu: true,
+        },
+        children: [
+          {
+            path: 'index',
+            name: 'ConfigManagement',
+            meta: {
+              title: '预约设置',
+              ignoreKeepAlive: true,
+            },
+            component: '/appointment/config/index',
+          },
+        ],
+      },
+    ];
+
     return {
       code: 0,
-      result: [dashboardRoute, 
-        // sysRoute,
-        ArticleRoute,
-        AccountRoute,
-      ],
+      // result: [dashboardRoute, 
+      //   // sysRoute,
+      //   ArticleRoute,
+      //   AccountRoute,
+      // ],
+      result: appointment,
       message: 'success',
       type: 'success',
     };
