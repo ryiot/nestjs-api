@@ -7,15 +7,19 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as dayjs from 'dayjs';
 import * as randomstring from 'randomstring';
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import { SkipJwtAuth } from '../system/login/jwt.constants';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('upload')
 export class UploadController {
+  constructor(private readonly configService: ConfigService) {}
+
   @SkipJwtAuth()
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
+    const uploadUrl = this.configService.get('UPLOAD_URL');
     const numStr = randomstring.generate({
       length: 10,
       charset: 'numeric',
@@ -26,8 +30,9 @@ export class UploadController {
       numStr +
       '.' +
       file.originalname.split('.').pop();
+    console.log('file=', uploadUrl + name);
     try {
-      fs.writeFileSync('public' + name, file.buffer);
+      fs.outputFileSync('public' + name, file.buffer);
     } catch (err) {
       console.error(err);
       return {
@@ -37,12 +42,12 @@ export class UploadController {
       };
     }
     // console.log('name=', name);
-    // console.log(file);
+    console.log('file=', uploadUrl + name);
     return {
-      url: name,
+      url: uploadUrl + name,
       errno: 0, // 注意：值是数字，不能是字符串
       data: {
-        url: name, // 图片 src ，必须
+        url: uploadUrl + name, // 图片 src ，必须
         // url: 'http://localhost:3000' + name, // 图片 src ，必须
         alt: 'yyy', // 图片描述文字，非必须
         href: 'zzz', // 图片的链接，非必须
