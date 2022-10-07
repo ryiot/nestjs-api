@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  @Redirect('www', 302)
-  getHello() {}
+  // @Get()
+  // @Redirect('www', 302)
+  // getHello() {}
 }

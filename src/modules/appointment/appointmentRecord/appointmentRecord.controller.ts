@@ -8,18 +8,46 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
+import { AppointmentListService } from '../appointmentList/appointmentList.service';
 import { AppointmentRecordService } from './appointmentRecord.service';
 
 @Controller('appointment/record')
 export class AppointmentRecordController {
   constructor(
     private readonly appointmentRecordService: AppointmentRecordService,
+    private readonly appointmentListService: AppointmentListService,
   ) {}
 
   @SkipJwtAuth()
   @HttpCode(200)
   @Post('add')
   async create(@Body() dto: any): Promise<any> {
+    const { name, sex, age, phone, union, IDcard, imgUrl, endTime } = dto;
+    // console.log("name=", name);
+    const nameRes = await this.appointmentListService.findByName(name);
+    // console.log("name=", nameRes);
+    // const nameAll = await this.appointmentListService.findAll();
+    // console.log("all=", nameAll);
+    if (nameRes == null) {
+      return {
+        code: -1,
+        result: null,
+        message: '不在劳模名单中',
+      };
+    }
+    const card = await this.appointmentRecordService.findByIDcard(IDcard);
+    // console.log("name=", card);
+    // const nameAll = await this.appointmentListService.findAll();
+    // console.log("all=", nameAll);
+    if (card != null) {
+      // 更新劳模信息
+      await this.appointmentRecordService.updateIDcard(dto);
+      return {
+        code: -1,
+        result: null,
+        message: '已经提交',
+      };
+    }
     const createInfo = await this.appointmentRecordService.create(dto);
 
     return {

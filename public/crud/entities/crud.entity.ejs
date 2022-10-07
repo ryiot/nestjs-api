@@ -1,0 +1,20 @@
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from 'src/common/entities/base.entity';
+
+@Entity('<%=tableName%>')
+export class <%=tableNameStr%>Entity extends BaseEntity {
+  @PrimaryGeneratedColumn({
+    name: '<%= key.columnName %>',
+    comment: '<%= key.comment %>',
+  })
+  <%= key.name %>: <% if (key.type == 'varchar') { %>string;<% } %><% if (key.type == 'datetime') { %>Date;<% } %><% if (key.type == 'int') { %>number;<% } %><% for (let i = 0; i < list.length; i++) { %>
+
+  @Column({
+    type: '<%= list[i].type %>',
+    name: '<%= list[i].columnName %>',
+    comment: '<%= list[i].comment %>',<% if (list[i].length != null) { %>
+    length: <%= list[i].length %>,<% } %>
+    <% if (list[i].default == null) { %>default: null,<% } else { %>default: '<%= list[i].default %>'<% } %>
+  })
+  <%= list[i].name %>: <% if (list[i].type == 'varchar') { %>string;<% } %><% if (list[i].type == 'datetime') { %>Date;<% } %><% if (list[i].type == 'int') { %>number;<% } %><% } %>
+}

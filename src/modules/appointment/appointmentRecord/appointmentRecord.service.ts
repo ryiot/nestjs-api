@@ -74,9 +74,57 @@ export class AppointmentRecordService {
     return 'err';
   }
 
+  async updateIDcard(dto: any): Promise<string> {
+    const {
+      // id,
+      name,
+      sex,
+      age,
+      phone,
+      union,
+      IDcard,
+      imgUrl,
+      startTime,
+      endTime,
+    } = dto;
+
+    const newData = {
+      name,
+      sex,
+      age,
+      phone,
+      union,
+      // IDcard,
+      imgUrl,
+      startTime,
+      endTime: dayjs(new Date()).format(),
+    };
+    const saveInfo = await this.appointmentRecordRepository.update(
+      { IDcard: IDcard },
+      newData,
+    );
+    console.log(saveInfo);
+    if (saveInfo != null) {
+      return null;
+    }
+    return 'err';
+  }
+
   async findById(id: number) {
     return await this.appointmentRecordRepository.findOne({
       where: { id: id },
+    });
+  }
+
+  async findByName(name: string) {
+    return await this.appointmentRecordRepository.findOne({
+      where: { name: name },
+    });
+  }
+
+  async findByIDcard(IDcard: string) {
+    return await this.appointmentRecordRepository.findOne({
+      where: { IDcard: IDcard },
     });
   }
 

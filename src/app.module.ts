@@ -12,6 +12,17 @@ import { AreasModule } from './modules/system/areas/areas.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { AppointmentConfigModule } from '@/modules/appointment/appointmentConfig/appointmentConfig.module';
 import { AppointmentRecordModule } from './modules/appointment/appointmentRecord/appointmentRecord.module';
+import { AppointmentListModule } from './modules/appointment/appointmentList/appointmentList.module';
+import { BusinessCardCardModule } from './modules/businessCard/card/card.module';
+import { WebsiteConfigModule } from './modules/website/websiteConfig/websiteConfig.module';
+import { WebsiteUnitUnitModule } from './modules/website/unit/unit.module';
+import { DictDataModule } from './modules/system/dict/dict-data/dict-data.module';
+import { DictTypeModule } from './modules/system/dict/dict-type/dict-type.module';
+import { NoticeModule } from './modules/system/notice/notice.module';
+import { Config1Module } from './modules/system/config1/config1.module';
+import { SwiperModule } from './modules/system/swiper/swiper.module';
+import { UnitModule } from './modules/system/unit/unit.module';
+import { CrudModule } from './modules/crud/crud.module';
 
 let configFilePath = path.resolve('.env.production');
 if (process.env.NODE_ENV == 'development') {
@@ -41,6 +52,13 @@ if (process.env.NODE_ENV == 'development') {
         synchronize: configService.get<boolean>('MYSQL_1_SYNCHRONIZE', true),
       }),
     }),
+    CrudModule,
+    DictDataModule,
+    DictTypeModule,
+    NoticeModule,
+    Config1Module,
+    SwiperModule,
+    UnitModule,
     UserModule,
     LoginModule,
     AccountModule,
@@ -49,6 +67,10 @@ if (process.env.NODE_ENV == 'development') {
     UploadModule,
     AppointmentConfigModule,
     AppointmentRecordModule,
+    AppointmentListModule,
+    BusinessCardCardModule,
+    WebsiteConfigModule,
+    WebsiteUnitUnitModule,
   ],
   controllers: [AppController],
   providers: [Logger, AppService],

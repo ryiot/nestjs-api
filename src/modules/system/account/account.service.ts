@@ -133,7 +133,7 @@ export class AccountService {
       select: [
         'id',
         'username',
-        'password',
+        // 'password',
         'avatar',
         'roleName',
         'role',

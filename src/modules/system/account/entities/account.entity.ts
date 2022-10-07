@@ -26,15 +26,15 @@ export class AccountEntity {
     name: 'role_name',
     comment: '角色名称',
     length: 20,
-    default: '厂家',
+    default: '管理员',
   })
   roleName: string;
 
   @Column('varchar', {
     name: 'role',
-    comment: '角色名称',
+    comment: '角色',
     length: 2,
-    default: 'B',
+    default: 'A',
   })
   role: string;
 

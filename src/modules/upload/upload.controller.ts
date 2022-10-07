@@ -44,6 +44,8 @@ export class UploadController {
     // console.log('name=', name);
     console.log('file=', uploadUrl + name);
     return {
+      code: 200,
+      name: name,
       url: uploadUrl + name,
       errno: 0, // 注意：值是数字，不能是字符串
       data: {
